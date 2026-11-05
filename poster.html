@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能·个股买前决策诊断台 — 产品亮点海报</title>
+<style>
+  :root {
+    --bg: #060a14;
+    --card: #0d1425;
+    --card2: #101a30;
+    --line: rgba(96, 130, 255, 0.22);
+    --line-hi: rgba(120, 150, 255, 0.45);
+    --text: #eaf0ff;
+    --sub: #8b9ac0;
+    --blue: #4f7cff;
+    --cyan: #2fd8e8;
+    --gold: #fbbf24;
+    --red: #fb5b6b;    /* A股红涨 */
+    --green: #2ee6a8;  /* A股绿跌 */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex; justify-content: center;
+    padding: 40px 0;
+  }
+  .poster {
+    width: 1080px;
+    background:
+      radial-gradient(900px 500px at 85% -5%, rgba(79,124,255,.16), transparent 60%),
+      radial-gradient(700px 420px at 0% 30%, rgba(47,216,232,.10), transparent 60%),
+      radial-gradient(800px 500px at 100% 75%, rgba(251,191,36,.07), transparent 55%),
+      var(--bg);
+    padding: 56px 56px 44px;
+  }
+  /* ============ 顶部 Banner ============ */
+  .hero { text-align: center; margin-bottom: 40px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line-hi); border-radius: 999px;
+    padding: 8px 20px; font-size: 14px; color: var(--cyan);
+    background: rgba(47,216,232,.08); letter-spacing: 2px; margin-bottom: 22px;
+  }
+  .hero-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+  .hero h1 {
+    font-size: 52px; font-weight: 800; letter-spacing: 2px; line-height: 1.25;
+    background: linear-gradient(180deg, #ffffff 30%, #9db8ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero h1 .em { color: var(--gold); -webkit-text-fill-color: var(--gold); }
+  .hero p.slogan { margin-top: 14px; font-size: 19px; color: var(--sub); letter-spacing: 1px; }
+  .hero p.slogan b { color: var(--text); }
+  /* 顶部核心指标条 */
+  .kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 30px; }
+  .kpi {
+    background: linear-gradient(160deg, var(--card2), var(--card));
+    border: 1px solid var(--line); border-radius: 16px; padding: 16px 10px 13px; text-align: center;
+  }
+  .kpi .v { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .kpi .v small { font-size: 15px; font-weight: 600; color: var(--sub); margin-left: 2px; }
+  .kpi .k { font-size: 12.5px; color: var(--sub); margin-top: 3px; letter-spacing: 1px; }
+  .c-blue { color: #8fb0ff; } .c-cyan { color: var(--cyan); } .c-gold { color: var(--gold); } .c-green { color: var(--green); }
+
+  /* ============ Bento Grid ============ */
+  .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .cell {
+    background: linear-gradient(165deg, var(--card2) 0%, var(--card) 70%);
+    border: 1px solid var(--line); border-radius: 20px; padding: 24px 24px 20px;
+    position: relative; overflow: hidden;
+  }
+  .cell::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-hi), transparent); }
+  .num-tag {
+    position: absolute; top: 18px; right: 22px; font-size: 40px; font-weight: 800;
+    color: transparent; -webkit-text-stroke: 1px rgba(140,165,255,.28); line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .cell .t { font-size: 21px; font-weight: 800; letter-spacing: .5px; margin-bottom: 6px; }
+  .cell .t .ic { margin-right: 6px; }
+  .cell .d { font-size: 14px; color: var(--sub); line-height: 1.75; }
+  .cell .d b { color: var(--text); }
+  .pain { display: flex; gap: 8px; margin-top: 12px; font-size: 12.5px; line-height: 1.6; }
+  .pain .no, .pain .yes { border-radius: 8px; padding: 7px 11px; flex: 1; }
+  .pain .no  { background: rgba(251,91,107,.10);  border: 1px solid rgba(251,91,107,.35);  color: #ffb3ba; }
+  .pain .yes { background: rgba(46,230,168,.09);  border: 1px solid rgba(46,230,168,.35);  color: #a9f5d9; }
+
+  /* -- 块1 全覆盖：联想示意 -- */
+  .span7 { grid-column: span 7; } .span5 { grid-column: span 5; }
+  .span6 { grid-column: span 6; } .span4 { grid-column: span 4; }
+  .span12 { grid-column: span 12; } .span8 { grid-column: span 8; }
+  .mock-search {
+    margin-top: 14px; background: #0a1120; border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden; font-size: 13px;
+  }
+  .mock-input {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    border-bottom: 1px solid var(--line); color: var(--text);
+  }
+  .mock-input .caret { width: 2px; height: 15px; background: var(--cyan);
+    animation: blink 1.1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .mock-input .ph { color: var(--sub); }
+  .mock-row { display: flex; align-items: center; gap: 10px; padding: 8px 14px; color: var(--sub); }
+  .mock-row.hl { background: rgba(79,124,255,.14); color: var(--text); }
+  .mock-row .n { font-weight: 700; color: var(--text); }
+  .mock-row.hl .n { color: var(--cyan); }
+  .mock-row .c { margin-left: auto; font-variant-numeric: tabular-nums; color: #5c6c94; font-size: 12px; }
+
+  /* -- 块2 三关 -- */
+  .gates { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .gate {
+    display: flex; align-items: center; gap: 12px;
+    background: #0a1120; border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px;
+  }
+  .gate .no {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+  }
+  .g1 .no { background: rgba(251,91,107,.15); color: var(--red); border: 1px solid rgba(251,91,107,.4); }
+  .g2 .no { background: rgba(79,124,255,.15); color: #8fb0ff; border: 1px solid rgba(79,124,255,.4); }
+  .g3 .no { background: rgba(251,191,36,.15); color: var(--gold); border: 1px solid rgba(251,191,36,.4); }
+  .gate .gt { font-size: 14.5px; font-weight: 700; }
+  .gate .gs { font-size: 12px; color: var(--sub); margin-top: 1px; }
+  .gate .fl { margin-left: auto; display: flex; gap: 5px; }
+  .chip { font-size: 11px; border-radius: 999px; padding: 3px 9px; white-space: nowrap;
+    border: 1px solid var(--line-hi); color: #a9c0ff; background: rgba(79,124,255,.08); }
+  .chip.r { color: #ffb3ba; border-color: rgba(251,91,107,.4); background: rgba(251,91,107,.08); }
+  .chip.g { color: #a9f5d9; border-color: rgba(46,230,168,.4); background: rgba(46,230,168,.08); }
+  .chip.y { color: #ffe2a3; border-color: rgba(251,191,36,.4); background: rgba(251,191,36,.08); }
+
+  /* -- 块3 学术内核 -- */
+  .acad { display: flex; align-items: center; gap: 20px; margin-top: 14px; }
+  .auc {
+    width: 108px; height: 108px; border-radius: 50%; flex-shrink: 0; position: relative;
+    background: conic-gradient(var(--green) 0 280.8deg, rgba(255,255,255,.08) 280.8deg 360deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .auc::before { content: ""; position: absolute; inset: 11px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--line); }
+  .auc .in { position: relative; text-align: center; }
+  .auc .in .v { font-size: 27px; font-weight: 800; color: var(--green); }
+  .auc .in .k { font-size: 11px; color: var(--sub); letter-spacing: 1px; }
+  .coefs { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .coef { display: flex; align-items: baseline; justify-content: space-between;
+    background: #0a1120; border: 1px solid var(--line); border-radius: 10px; padding: 8px 13px; }
+  .coef .k { font-size: 12.5px; color: var(--sub); }
+  .coef .v { font-size: 16px; font-weight: 800; color: #8fb0ff; font-variant-numeric: tabular-nums; }
+  .acad-note { margin-top: 12px; font-size: 12.5px; color: var(--sub); line-height: 1.7; }
+  .acad-note b { color: var(--text); }
+
+  /* -- 块4 实战看盘闭环：SVG 迷你K线 -- */
+  .kline-wrap { margin-top: 12px; background: #0a1120; border: 1px solid var(--line);
+    border-radius: 12px; padding: 10px 8px 4px; }
+  .pass { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .pass .chip { font-size: 12px; padding: 5px 12px; }
+
+  /* -- 块5 Top5 PK -- */
+  .peer-mini { margin-top: 13px; background: #0a1120; border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden; font-size: 12.5px; }
+  .peer-head, .peer-line { display: grid; grid-template-columns: 1.5fr .8fr 1fr 1fr; gap: 6px;
+    padding: 8px 13px; align-items: center; }
+  .peer-head { color: #5c6c94; font-size: 11px; border-bottom: 1px solid var(--line); }
+  .peer-line { border-bottom: 1px solid rgba(96,130,255,.1); color: var(--sub); }
+  .peer-line:last-child { border-bottom: none; }
+  .peer-line .n { color: var(--text); font-weight: 700; }
+  .peer-line .me { background: rgba(251,191,36,.12); color: var(--gold); border-radius: 7px;
+    padding: 3px 6px; font-weight: 800; display: inline-block; }
+  .peer-line .s { color: #8fb0ff; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .radar-tag { margin-top: 12px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+    font-size: 12px; color: var(--sub); }
+
+  /* -- 块6 双端 -- */
+  .devices { display: flex; align-items: flex-end; justify-content: center; gap: 26px; margin-top: 16px; }
+  .phone { width: 84px; height: 150px; border: 2px solid var(--line-hi); border-radius: 14px;
+    background: #0a1120; padding: 8px 7px; position: relative; }
+  .phone::before { content: ""; position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+    width: 26px; height: 3px; border-radius: 3px; background: var(--line-hi); }
+  .desk { width: 190px; height: 118px; border: 2px solid var(--line); border-radius: 12px;
+    background: #0a1120; padding: 8px; position: relative; }
+  .desk::after { content: ""; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+    width: 60px; height: 5px; border-radius: 3px; background: var(--line-hi); }
+  .sk { height: 7px; border-radius: 4px; background: rgba(140,165,255,.22); margin-bottom: 6px; }
+  .sk.b { background: rgba(79,124,255,.5); }
+  .sk.c { background: rgba(47,216,232,.4); }
+  .sk.g { background: rgba(46,230,168,.4); }
+  .sk.r { background: rgba(251,91,107,.4); }
+
+  /* ============ 底部 ============ */
+  .footer {
+    margin-top: 28px; border: 1px dashed var(--line-hi); border-radius: 20px;
+    padding: 26px 30px; text-align: center;
+    background: linear-gradient(160deg, rgba(79,124,255,.10), rgba(47,216,232,.05));
+  }
+  .footer .f1 { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+  .footer .f1 .em { color: var(--gold); }
+  .footer .f2 { margin-top: 8px; font-size: 13.5px; color: var(--sub); line-height: 1.8; }
+  .footer .f2 b { color: var(--text); }
+  .disclaim { margin-top: 20px; text-align: center; font-size: 11.5px; color: #4d5a7d; letter-spacing: 1px; }
+
+  /* ============ 移动端自适应（<768px 单列垂直，严禁左右分栏挤压） ============ */
+  @media (max-width: 767px) {
+    body { padding: 0; }
+    .poster {
+      width: 100%;
+      padding: 32px 16px 28px;   /* 手机端外边距 16px */
+    }
+    /* 顶部标题自适应缩小 */
+    .hero { margin-bottom: 26px; }
+    .hero h1 { font-size: 26px; letter-spacing: 1px; line-height: 1.35; }
+    .hero p.slogan { font-size: 14.5px; padding: 0 4px; }
+    .hero-badge { font-size: 11.5px; padding: 6px 14px; letter-spacing: 1.5px; }
+    /* KPI 条改 2×2 */
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 22px; }
+    .kpi .v { font-size: 22px; }
+    .kpi .k { font-size: 11px; }
+    /* 主网格强制单列垂直 */
+    .bento { grid-template-columns: 1fr; gap: 14px; }
+    .span7, .span5, .span6, .span4, .span8, .span12 { grid-column: auto; }
+    .cell { padding: 18px 16px 16px; }
+    .cell .t { font-size: 17.5px; padding-right: 34px; }
+    .cell .d { font-size: 13.5px; }
+    .num-tag { font-size: 26px; top: 14px; right: 16px; }
+    /* 三关列表：中间文字区永远横排，右侧标签不换行不压缩 */
+    .gate { padding: 10px 12px; }
+    .gate > div:nth-child(2) { flex: 1; min-width: 0; }
+    .gate .gt { font-size: 13.5px; }
+    .gate .gs { font-size: 11px; }
+    .gate .fl { white-space: nowrap; flex-shrink: 0; margin-left: 8px; }
+    /* 痛点 vs 方案：上下堆叠 */
+    .pain { flex-direction: column; gap: 6px; }
+    .pain .no, .pain .yes { padding: 8px 12px; }
+    /* 学术块：圆环与系数表上下排列 */
+    .acad { flex-direction: column; gap: 14px; }
+    .coefs { width: 100%; }
+    .coef .v { font-size: 14px; }
+    /* Top5 表格首列加宽保护 */
+    .peer-head, .peer-line { grid-template-columns: 1.6fr .7fr .9fr .9fr; gap: 4px; padding: 7px 10px; font-size: 11.5px; }
+    /* 双端示意缩小 */
+    .devices { gap: 16px; }
+    .desk { width: 150px; height: 100px; }
+    .phone { width: 72px; height: 128px; }
+    .footer { padding: 20px 14px; }
+    .footer .f1 { font-size: 17px; }
+    .footer .f2 { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ============ Banner ============ -->
+  <div class="hero">
+    <div class="hero-badge">CSMAR 实证 × 机器学习 × 2026 全新升级</div>
+    <h1>AI赋能 · <span class="em">个股买前</span>决策诊断台</h1>
+    <p class="slogan">下单前 30 秒，替你翻完 <b>5000 家公司年报</b> —— 财务排雷、AI 成色、估值水位，一屏定夺</p>
+    <div class="kpi-strip">
+      <div class="kpi"><div class="v c-blue">5150<small>家</small></div><div class="k">A 股全市场覆盖</div></div>
+      <div class="kpi"><div class="v c-cyan">30<small>秒</small></div><div class="k">单股毫秒级诊断</div></div>
+      <div class="kpi"><div class="v c-gold">0.78</div><div class="k">GBDT 验证 AUC</div></div>
+      <div class="kpi"><div class="v c-green">0<small>依赖</small></div><div class="k">离线单文件 · 双端</div></div>
+    </div>
+  </div>
+
+  <!-- ============ Bento ============ -->
+  <div class="bento">
+
+    <!-- ① 全覆盖 -->
+    <div class="cell span7">
+      <div class="num-tag">01</div>
+      <div class="t"><span class="ic">🌐</span>5000+ A股全覆盖 · 毫秒级检索</div>
+      <div class="d">内置 <b>5150 家上市公司</b>面板（沪深主板 / 创业板 / 科创板 / 北交所），支持<b>代码、汉字、拼音首字母</b>三种输入，最近查询自动记忆。</div>
+      <div class="mock-search">
+        <div class="mock-input"><span style="color:var(--cyan)">⌕</span> gzmt<span class="caret"></span></div>
+        <div class="mock-row hl"><span class="n">贵州茅台</span> 食品饮料 · C15 <span class="c">600519</span></div>
+        <div class="mock-row"><span class="n">国农科技</span> 信息技术 · I65 <span class="c">000004</span></div>
+        <div class="mock-row"><span class="n">冠农股份</span> 农林牧渔 · A01 <span class="c">600251</span></div>
+      </div>
+      <div class="pain">
+        <div class="no">痛点：查一家公司要开行情软件＋财报PDF＋研报，10 分钟起步</div>
+        <div class="yes">方案：输入 byd / gzmt，<b>点击即出全维度诊断</b></div>
+      </div>
+    </div>
+
+    <!-- ② 三关 -->
+    <div class="cell span5">
+      <div class="num-tag">02</div>
+      <div class="t"><span class="ic">🛡️</span>买前闯三关 · 像体检一样排雷</div>
+      <div class="gates">
+        <div class="gate g1"><div class="no">1</div><div><div class="gt">财务排雷</div><div class="gs">负债率 / 营收增速 / 流动比率</div></div><div class="fl"><span class="chip r">⚠️ 预警</span></div></div>
+        <div class="gate g2"><div class="no">2</div><div><div class="gt">AI 与人才升级画像</div><div class="gs">AI 暴露度 · 技术岗 · 高学历 · 薪酬</div></div><div class="fl"><span class="chip">SBTC</span></div></div>
+        <div class="gate g3"><div class="no">3</div><div><div class="gt">估值水位 + Checklist</div><div class="gs">PB / 托宾Q 分位 · 防冲动勾选</div></div><div class="fl"><span class="chip g">安全区</span></div></div>
+      </div>
+      <div class="pain">
+        <div class="no">痛点：指标散落各处，踩雷后才后悔</div>
+        <div class="yes">方案：三关红灯绿灯，<b>雷股一眼现形</b></div>
+      </div>
+    </div>
+
+    <!-- ③ 学术内核 -->
+    <div class="cell span12">
+      <div class="num-tag">03</div>
+      <div class="t"><span class="ic">🎓</span>独家学术内核：不是玄学，是 20 年面板数据验证过的因子</div>
+      <div class="d">基于 <b>2006–2025 年 CSMAR 全市场面板</b>（约 6 万个公司-年观测），双版本 AI 暴露度交叉印证，机器学习反向验证因子有效性。</div>
+      <div class="acad">
+        <div class="auc"><div class="in"><div class="v">0.78</div><div class="k">GBDT AUC</div></div></div>
+        <div class="coefs">
+          <div class="coef"><span class="k">AI 暴露度 → 企业价值 (托宾Q)</span><span class="v">+0.074***</span></div>
+          <div class="coef"><span class="k">AI 暴露度 → 市净率溢价</span><span class="v">+0.143***</span></div>
+          <div class="coef"><span class="k">AI 暴露度 → 人均报酬 (技能溢价)</span><span class="v">+0.122***</span></div>
+          <div class="coef"><span class="k">姚加权版 × 彭树宏版</span><span class="v">双口径交叉验证</span></div>
+        </div>
+      </div>
+      <div class="acad-note"><b>为什么可信？</b>双向固定效应回归 + SBTC 中介机制检验 + 5 折交叉验证 AUC 0.78 —— AI 暴露度对个股未来绩效具备真实预测力，而非事后讲故事。</div>
+    </div>
+
+    <!-- ④ 实战看盘闭环 -->
+    <div class="cell span7">
+      <div class="num-tag">04</div>
+      <div class="t"><span class="ic">📈</span>实战看盘闭环：诊断完，图就在眼前</div>
+      <div class="d">页内直嵌<b>新浪实时分时 / 日K / 周K / 月K</b>，切股自动刷新；雪球、新浪、东财三大平台<b>一键穿透</b>，公告研报直达。</div>
+      <div class="kline-wrap">
+        <svg width="100%" height="118" viewBox="0 0 480 118" preserveAspectRatio="none">
+          <line x1="0" y1="30" x2="480" y2="30" stroke="rgba(140,165,255,.08)"/>
+          <line x1="0" y1="62" x2="480" y2="62" stroke="rgba(140,165,255,.08)"/>
+          <line x1="0" y1="94" x2="480" y2="94" stroke="rgba(140,165,255,.08)"/>
+          <g>
+            <line x1="14" y1="58" x2="14" y2="34" stroke="#2ee6a8" stroke-width="1.5"/><rect x="10" y="38" width="8" height="14" fill="#2ee6a8" rx="1"/>
+            <line x1="42" y1="52" x2="42" y2="26" stroke="#fb5b6b" stroke-width="1.5"/><rect x="38" y="30" width="8" height="16" fill="#fb5b6b" rx="1"/>
+            <line x1="70" y1="48" x2="70" y2="28" stroke="#2ee6a8" stroke-width="1.5"/><rect x="66" y="33" width="8" height="10" fill="#2ee6a8" rx="1"/>
+            <line x1="98" y1="54" x2="98" y2="30" stroke="#fb5b6b" stroke-width="1.5"/><rect x="94" y="34" width="8" height="15" fill="#fb5b6b" rx="1"/>
+            <line x1="126" y1="60" x2="126" y2="38" stroke="#2ee6a8" stroke-width="1.5"/><rect x="122" y="42" width="8" height="12" fill="#2ee6a8" rx="1"/>
+            <line x1="154" y1="50" x2="154" y2="26" stroke="#fb5b6b" stroke-width="1.5"/><rect x="150" y="30" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="182" y1="46" x2="182" y2="22" stroke="#fb5b6b" stroke-width="1.5"/><rect x="178" y="26" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="210" y1="52" x2="210" y2="30" stroke="#2ee6a8" stroke-width="1.5"/><rect x="206" y="34" width="8" height="12" fill="#2ee6a8" rx="1"/>
+            <line x1="238" y1="56" x2="238" y2="32" stroke="#fb5b6b" stroke-width="1.5"/><rect x="234" y="36" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="266" y1="48" x2="266" y2="24" stroke="#fb5b6b" stroke-width="1.5"/><rect x="262" y="28" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="294" y1="54" x2="294" y2="30" stroke="#2ee6a8" stroke-width="1.5"/><rect x="290" y="34" width="8" height="13" fill="#2ee6a8" rx="1"/>
+            <line x1="322" y1="44" x2="322" y2="20" stroke="#fb5b6b" stroke-width="1.5"/><rect x="318" y="24" width="8" height="15" fill="#fb5b6b" rx="1"/>
+            <line x1="350" y1="40" x2="350" y2="16" stroke="#fb5b6b" stroke-width="1.5"/><rect x="346" y="20" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="378" y1="46" x2="378" y2="24" stroke="#2ee6a8" stroke-width="1.5"/><rect x="374" y="28" width="8" height="12" fill="#2ee6a8" rx="1"/>
+            <line x1="406" y1="52" x2="406" y2="30" stroke="#fb5b6b" stroke-width="1.5"/><rect x="402" y="33" width="8" height="14" fill="#fb5b6b" rx="1"/>
+            <line x1="434" y1="42" x2="434" y2="16" stroke="#fb5b6b" stroke-width="1.5"/><rect x="430" y="20" width="8" height="16" fill="#fb5b6b" rx="1"/>
+            <line x1="462" y1="36" x2="462" y2="12" stroke="#fb5b6b" stroke-width="1.5"/><rect x="458" y="16" width="8" height="14" fill="#fb5b6b" rx="1"/>
+          </g>
+          <polyline points="14,44 98,46 182,38 266,36 350,30 434,24 462,20" fill="none" stroke="#2fd8e8" stroke-width="1.5" opacity=".8"/>
+        </svg>
+      </div>
+      <div class="pass">
+        <span class="chip">❄️ 雪球看盘</span><span class="chip">📊 新浪行情</span><span class="chip">🔎 东财公告研报</span>
+      </div>
+      <div class="pain">
+        <div class="no">痛点：诊断完还要切 App 找 K 线，注意力被打断</div>
+        <div class="yes">方案：分时/K线<b>页内直出</b>，买卖决策不断链</div>
+      </div>
+    </div>
+
+    <!-- ⑤ Top5 PK + 雷达 -->
+    <div class="cell span5">
+      <div class="num-tag">05</div>
+      <div class="t"><span class="ic">🏆</span>同行业 Top5 自动 PK + 选股雷达</div>
+      <div class="d">自动锁定<b>同行业龙头</b>与你的标的硬碰硬，附全行业排名；选股雷达一键筛出<b>营收正增长 × 偿债安全 × AI 领先</b>的黑马股。</div>
+      <div class="peer-mini">
+        <div class="peer-head"><span>同行业 K70</span><span>评分</span><span>AI 暴露度</span><span>营收增速</span></div>
+        <div class="peer-line"><span class="n">先导基电</span><span class="s">89</span><span>2.30</span><span>+111.9%</span></div>
+        <div class="peer-line"><span class="n">万通发展</span><span class="s">85</span><span>3.04</span><span>+12.0%</span></div>
+        <div class="peer-line"><span class="n">万科Ａ（本股）</span><span class="me">76</span><span>2.94</span><span>+28.5%</span></div>
+        <div class="peer-line"><span class="n">房地产行业 103 家中 · 排名第 27</span></div>
+      </div>
+      <div class="radar-tag">
+        <span class="chip y">🔍 选股雷达</span><span class="chip g">流动比率 &gt; 1.2</span><span class="chip">AI 分位 ≥ 60%</span><span class="chip">Top 20 黑马</span>
+      </div>
+      <div class="pain">
+        <div class="no">痛点：只看个股不看同行，容易"矮子里拔将军"</div>
+        <div class="yes">方案：龙头 PK + 行业排名，<b>相对位置一目了然</b></div>
+      </div>
+    </div>
+
+    <!-- ⑥ 双端 -->
+    <div class="cell span12">
+      <div class="num-tag">06</div>
+      <div class="t"><span class="ic">📱</span>手机 / PC 双端丝滑：一个 4.7MB 单文件，走哪都能用</div>
+      <div class="d" style="text-align:center;">纯原生内联 CSS，<b>零外部依赖、断网可用</b>。发微信、存手机、投屏 PPT —— 打开就是完整系统，数据本地即时运算。</div>
+      <div class="devices">
+        <div class="phone">
+          <div class="sk b" style="width:60%"></div>
+          <div class="sk"></div><div class="sk g" style="width:40%"></div>
+          <div class="sk"></div><div class="sk c" style="width:70%"></div>
+          <div class="sk"></div><div class="sk r" style="width:50%"></div>
+          <div class="sk"></div><div class="sk b" style="width:65%"></div>
+        </div>
+        <div class="desk">
+          <div style="display:flex; gap:8px;">
+            <div style="flex:1;">
+              <div class="sk b"></div><div class="sk"></div><div class="sk g" style="width:45%"></div><div class="sk"></div>
+            </div>
+            <div style="flex:1;">
+              <div class="sk c"></div><div class="sk" style="width:70%"></div><div class="sk r" style="width:55%"></div><div class="sk"></div>
+            </div>
+            <div style="flex:1;">
+              <div class="sk b" style="width:80%"></div><div class="sk"></div><div class="sk g" style="width:60%"></div><div class="sk" style="width:40%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pain">
+        <div class="no">痛点：专业工具要么装 App、要么订阅付费、要么断网就瘫痪</div>
+        <div class="yes">方案：单文件即系统，<b>微信里点开就能诊断</b></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ Footer ============ -->
+  <div class="footer">
+    <div class="f1">先诊断，后下单 —— <span class="em">把研究时间还给判断</span></div>
+    <div class="f2"><b>AI赋能 · 个股买前决策诊断台</b>　|　5150 家 A股 · 三关排雷 · 学术因子背书 · 实时看盘闭环 · 全部离线可用</div>
+  </div>
+  <div class="disclaim">数据来源：CSMAR 2006–2025 面板 × 新浪/腾讯实时行情 · 本工具为个人研究辅助，不构成投资建议</div>
+
+</div>
+</body>
+</html>
